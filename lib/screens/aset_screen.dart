@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../api_service.dart';
 import 'detail_aset_screen.dart';
+import 'add_asset_screen.dart';
 
 class AsetScreen extends StatefulWidget {
   @override
@@ -40,10 +41,27 @@ class _AsetScreenState extends State<AsetScreen> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Manajemen Aset"), elevation: 2),
+      // FAB harus di sini (sejajar dengan body), bukan di dalam Column
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          bool? refresh = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddAssetScreen()),
+          );
+          if (refresh == true) {
+            _fetchAssets();
+          }
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
+      ),
+
       body: Column(
         children: [
           // Filter Dropdown Kategori

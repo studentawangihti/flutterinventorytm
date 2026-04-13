@@ -1,6 +1,15 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+// Future<Map<String, dynamic>> getCategories() async {
+//   try {
+//     final response = await http.get(Uri.parse('$baseUrl/get_categories'));
+//     return json.decode(response.body);
+//   } catch (e) {
+//     return {'status': false, 'message': 'Gagal muat kategori: $e'};
+//   }
+// }
+
 class ApiService {
   // Pastikan IP ini sesuai dengan IP Laptop Anda saat ini
   static const String baseUrl = "http://192.168.1.2/Project_Magang/index.php/app/api";
@@ -39,15 +48,6 @@ class ApiService {
     }
   }
 
-  Future<Map<String, dynamic>> getCategories() async {
-    try {
-      final response = await http.get(Uri.parse('$baseUrl/get_categories'));
-      return json.decode(response.body);
-    } catch (e) {
-      return {'status': false, 'message': 'Gagal muat kategori: $e'};
-    }
-  }
-
   Future<Map<String, dynamic>> getAssets({String? kategoriId}) async {
     try {
       String url = '$baseUrl/get_assets';
@@ -70,4 +70,44 @@ class ApiService {
       return {'status': false, 'message': 'Kesalahan koneksi: $e'};
     }
   }
+
+  Future<Map<String, dynamic>> getAssetMetadata() async {
+    final response = await http.get(Uri.parse('$baseUrl/get_asset_metadata'));
+    return json.decode(response.body);
+  }
+
+  Future<Map<String, dynamic>> saveAsset(Map<String, dynamic> assetData) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/save_asset'),
+      body: assetData, // Data dikirim sebagai form-data
+    );
+    return json.decode(response.body);
+  }
+
+  Future<Map<String, dynamic>> getCategories() async {
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/get_categories'));
+      if (response.statusCode == 200) {
+        return json.decode(response.body); // Mengembalikan data kategori dari DB
+      } else {
+        return {'status': false, 'message': 'Gagal memuat kategori'};
+      }
+    } catch (e) {
+      return {'status': false, 'message': 'Kesalahan koneksi: $e'};
+    }
+  }
+
+  Future<Map<String, dynamic>> getExistingSkuCodes(String kategoriId) async {
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/get_existing_sku_codes?kategori_id=$kategoriId'));
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        return {'status': false, 'message': 'Gagal memuat saran SKU'};
+      }
+    } catch (e) {
+      return {'status': false, 'message': 'Kesalahan koneksi: $e'};
+    }
+  }
+
 }
