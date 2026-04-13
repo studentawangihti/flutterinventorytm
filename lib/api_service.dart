@@ -110,4 +110,25 @@ class ApiService {
     }
   }
 
+  Future<Map<String, dynamic>> deleteAsset(String id) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/delete_asset'),
+        body: {'asset_id': id},
+      );
+      return json.decode(response.body);
+    } catch (e) {
+      return {'status': false, 'message': 'Kesalahan koneksi: $e'};
+    }
+  }
+
+  Future<Map<String, dynamic>> getAssetBySku(String sku) async {
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/get_asset_by_sku?sku=$sku'));
+      return json.decode(response.body);
+    } catch (e) {
+      return {'status': false, 'message': 'Kesalahan koneksi: $e'};
+    }
+  }
+
 }

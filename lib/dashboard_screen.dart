@@ -5,6 +5,8 @@ import 'screens/aset_screen.dart';
 import 'screens/list_screen.dart';
 import 'screens/transaksi_screen.dart';
 import 'screens/layanan_screen.dart';
+import 'screens/qr_scanner_screen.dart';
+import 'screens/qr_generator_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   final Map<String, dynamic> userData;
@@ -67,9 +69,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             SizedBox(height: 12),
             Row(
               children: [
-                _buildStatCard("Jenis Aset", _summary?['total_asset_types'].toString() ?? "0", Colors.blue),
-                _buildStatCard("Total Unit", _summary?['total_assets'].toString() ?? "0", Colors.green),
-                _buildStatCard("Terpakai", _summary?['total_in_use'].toString() ?? "0", Colors.orange),
+                _buildStatCard("Total Aset", _summary?['total_asset_types'].toString() ?? "0", Colors.blue),
+                // _buildStatCard("Total Unit", _summary?['total_assets'].toString() ?? "0", Colors.green),
+                // _buildStatCard("Terpakai", _summary?['total_in_use'].toString() ?? "0", Colors.orange),
               ],
             ),
             SizedBox(height: 32),
@@ -96,6 +98,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 }),
                 _buildMenuButton(context, "Layanan Aset", Icons.build_circle, Colors.redAccent, () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => LayananScreen()));
+                }),
+                _buildMenuButton(context, "Scan QR", Icons.qr_code_scanner, Colors.purple, () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => QrScannerScreen()));
+                }),
+                _buildMenuButton(context, "Buat QR", Icons.qr_code, Colors.deepOrange, () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => QrGeneratorScreen()));
                 }),
               ],
             ),
