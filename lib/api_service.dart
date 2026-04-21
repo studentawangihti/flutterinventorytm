@@ -131,4 +131,42 @@ class ApiService {
     }
   }
 
+  Future<Map<String, dynamic>> updateAsset(String id, Map<String, dynamic> data) async {
+    try {
+      data['asset_id'] = id;
+      final response = await http.post(
+        Uri.parse('$baseUrl/update_asset'),
+        body: data,
+      );
+      return json.decode(response.body);
+    } catch (e) {
+      return {'status': false, 'message': 'Kesalahan koneksi: $e'};
+    }
+  }
+
+  Future<Map<String, dynamic>> getAttributesByCategory(String kategoriId) async {
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/get_attributes_by_category?kategori_id=$kategoriId'));
+      return json.decode(response.body);
+    } catch (e) {
+      return {'status': false, 'message': 'Kesalahan koneksi: $e'};
+    }
+  }
+
+  Future<Map<String, dynamic>> getAutoSku(String kategoriId, String kdSingkat, String tglBeli) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/get_auto_sku'),
+        body: {
+          'kategori_id': kategoriId,
+          'kd_singkat': kdSingkat,
+          'tgl_beli': tglBeli,
+        },
+      );
+      return json.decode(response.body);
+    } catch (e) {
+      return {'status': false, 'message': 'Gagal generate SKU'};
+    }
+  }
+
 }

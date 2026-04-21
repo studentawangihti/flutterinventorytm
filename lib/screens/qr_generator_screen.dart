@@ -94,3 +94,5 @@ class _QrGeneratorScreenState extends State<QrGeneratorScreen> {
     );
   }
 }
+
+

@@ -31,7 +31,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
               builder: (context) => DetailAsetScreen(
                 assetId: result['data']['asset_id'].toString(),
                 assetName: result['data']['asset_nm'],
-              ),  
+              ),
             ),
           );
         } else {
@@ -55,3 +55,9 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
     );
   }
 }
+
+/*
+beberapa fitur yang ingin ditambahkan :
+1. qr masal
+2. export to pdf
+ */
