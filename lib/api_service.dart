@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 
 class ApiService {
   // Pastikan IP ini sesuai dengan IP Laptop Anda saat ini
-  static const String baseUrl = "http://192.168.1.2/Project_Magang/index.php/app/api";
+  static const String baseUrl = "http://192.168.1.8/Project_Magang/index.php/app/api";
 
   Future<Map<String, dynamic>> testConnection() async {
     try {
